@@ -271,6 +271,204 @@
         gap: 18px;
       }
 
+      .examples-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .example-group {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .example-group h3 {
+        margin: 0 0 2px;
+        font-size: 20px;
+      }
+
+      .example-note {
+        min-height: 42px;
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .sk-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 220px;
+        padding: 14px;
+        border: 1px solid #d9d3c9;
+        border-radius: 8px;
+        background: #fffdfa;
+        box-shadow: 0 10px 24px rgba(32, 27, 18, 0.06);
+      }
+
+      .sk-card.compact {
+        min-height: 132px;
+      }
+
+      .sk-card.horizontal {
+        min-height: 156px;
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+        align-items: stretch;
+      }
+
+      .sk-card.action {
+        background: #f8fffc;
+        border-color: #b8d9cf;
+      }
+
+      .sk-card.media {
+        background: #fbf9ff;
+        border-color: #cfc4ef;
+      }
+
+      .sk-media {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 92px;
+        overflow: hidden;
+        border-radius: 6px;
+        background:
+          linear-gradient(135deg, rgba(255, 90, 31, 0.18), transparent 52%),
+          linear-gradient(45deg, #f0ece4, #e3ded4);
+        border: 1px dashed #c8c0b5;
+      }
+
+      .sk-card.horizontal .sk-media {
+        min-height: auto;
+      }
+
+      .sk-logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 8px;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: 0 8px 18px rgba(32, 27, 18, 0.08);
+      }
+
+      .sk-logo.small {
+        width: 38px;
+        height: 38px;
+      }
+
+      .sk-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .sk-row.between {
+        justify-content: space-between;
+      }
+
+      .sk-stack {
+        display: flex;
+        min-width: 0;
+        flex: 1;
+        flex-direction: column;
+        gap: 7px;
+      }
+
+      .sk-line {
+        height: 10px;
+        border-radius: 99px;
+        background: #d8d1c7;
+      }
+
+      .sk-line.title {
+        width: 72%;
+        height: 14px;
+        background: #4b453d;
+      }
+
+      .sk-line.short {
+        width: 42%;
+      }
+
+      .sk-line.medium {
+        width: 62%;
+      }
+
+      .sk-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .sk-chip {
+        min-width: 58px;
+        height: 24px;
+        border-radius: 999px;
+        background: #ffe5d6;
+        border: 1px solid #f6b592;
+      }
+
+      .sk-chip.green {
+        background: #dff5ee;
+        border-color: #9fd2c4;
+      }
+
+      .sk-chip.purple {
+        background: #ebe5ff;
+        border-color: #c8b7ff;
+      }
+
+      .sk-button {
+        width: 100%;
+        height: 40px;
+        border-radius: 6px;
+        background: #181714;
+      }
+
+      .sk-button.outline {
+        background: transparent;
+        border: 2px solid #181714;
+      }
+
+      .sk-code {
+        display: grid;
+        grid-template-columns: 1fr 74px;
+        height: 42px;
+        overflow: hidden;
+        border: 1px dashed #0f8f74;
+        border-radius: 6px;
+        background: #fff;
+      }
+
+      .sk-code::before {
+        content: "";
+        margin: 13px 12px;
+        border-radius: 99px;
+        background: #bddfd5;
+      }
+
+      .sk-code::after {
+        content: "";
+        background: #0f8f74;
+      }
+
+      .sk-caption {
+        margin-top: -2px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
       .rules {
         padding: 22px;
         border: 1px solid var(--line);
@@ -310,6 +508,7 @@
 
         .hero,
         .cards-grid,
+        .examples-grid,
         .split {
           grid-template-columns: 1fr;
         }
@@ -467,6 +666,128 @@
               <li><code>mediaOverlay</code>: badge or label</li>
               <li><code>trailing</code>: arrow, none, or small CTA</li>
             </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Skeleton Builds</h2>
+          <p class="section-note">
+            These are intentionally low-fidelity, but they show the reusable
+            anatomy. If these three can absorb the survey without new public
+            components, the taxonomy is holding.
+          </p>
+        </div>
+
+        <div class="examples-grid">
+          <article class="example-group">
+            <h3>OfferCard examples</h3>
+            <p class="example-note">
+              Same merchant/reward hierarchy, with density and media treatment
+              doing the work.
+            </p>
+
+            <div class="sk-card">
+              <div class="sk-media">
+                <div class="sk-logo" aria-hidden="true"></div>
+              </div>
+              <div class="sk-badges">
+                <span class="sk-chip"></span>
+                <span class="sk-chip green"></span>
+              </div>
+              <div class="sk-stack">
+                <span class="sk-line title"></span>
+                <span class="sk-line medium"></span>
+                <span class="sk-line short"></span>
+              </div>
+              <div class="sk-button"></div>
+              <div class="sk-caption">default / imageWithLogo / action slot</div>
+            </div>
+
+            <div class="sk-card compact">
+              <div class="sk-row">
+                <div class="sk-logo small" aria-hidden="true"></div>
+                <div class="sk-stack">
+                  <span class="sk-line title"></span>
+                  <span class="sk-line medium"></span>
+                </div>
+              </div>
+              <div class="sk-badges">
+                <span class="sk-chip"></span>
+                <span class="sk-chip purple"></span>
+              </div>
+              <div class="sk-caption">compact / logo / badge stack</div>
+            </div>
+          </article>
+
+          <article class="example-group">
+            <h3>ActionOfferCard examples</h3>
+            <p class="example-note">
+              Conversion states change the body, so this stays separate from a
+              plain display card.
+            </p>
+
+            <div class="sk-card action">
+              <div class="sk-row between">
+                <div class="sk-row">
+                  <div class="sk-logo small" aria-hidden="true"></div>
+                  <div class="sk-logo small" aria-hidden="true"></div>
+                </div>
+                <span class="sk-chip green"></span>
+              </div>
+              <div class="sk-stack">
+                <span class="sk-line title"></span>
+                <span class="sk-line medium"></span>
+                <span class="sk-line short"></span>
+              </div>
+              <div class="sk-button"></div>
+              <div class="sk-caption">cashback / locked / activate CTA</div>
+            </div>
+
+            <div class="sk-card action compact">
+              <div class="sk-row">
+                <div class="sk-logo small" aria-hidden="true"></div>
+                <div class="sk-stack">
+                  <span class="sk-line title"></span>
+                  <span class="sk-line short"></span>
+                </div>
+              </div>
+              <div class="sk-code"></div>
+              <div class="sk-caption">code / revealed / CodeReveal slot</div>
+            </div>
+          </article>
+
+          <article class="example-group">
+            <h3>MediaCard examples</h3>
+            <p class="example-note">
+              Image/headline leads. Merchant offer logic should not leak into
+              this API.
+            </p>
+
+            <div class="sk-card media">
+              <div class="sk-media"></div>
+              <div class="sk-badges">
+                <span class="sk-chip purple"></span>
+              </div>
+              <div class="sk-stack">
+                <span class="sk-line title"></span>
+                <span class="sk-line medium"></span>
+                <span class="sk-line short"></span>
+              </div>
+              <div class="sk-caption">vertical / sponsored / arrow trailing</div>
+            </div>
+
+            <div class="sk-card media horizontal">
+              <div class="sk-media"></div>
+              <div class="sk-stack">
+                <span class="sk-line title"></span>
+                <span class="sk-line medium"></span>
+                <span class="sk-line short"></span>
+                <span class="sk-chip purple"></span>
+                <span class="sk-caption">horizontal / content row</span>
+              </div>
+            </div>
           </article>
         </div>
       </section>

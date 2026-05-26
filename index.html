@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Card Taxonomy Proposal</title>
+    <style>
+      :root {
+        --ink: #181714;
+        --muted: #706b61;
+        --line: #ddd8cf;
+        --paper: #fbfaf7;
+        --panel: #ffffff;
+        --soft: #f2eee6;
+        --accent: #ff5a1f;
+        --accent-2: #0f8f74;
+        --accent-3: #7551d9;
+        --shadow: 0 18px 45px rgba(32, 27, 18, 0.09);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.45;
+      }
+
+      .page {
+        width: min(1360px, calc(100vw - 48px));
+        margin: 0 auto;
+        padding: 44px 0 64px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.35fr);
+        gap: 28px;
+        align-items: stretch;
+        min-height: 520px;
+      }
+
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 34px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 720px;
+        margin: 0;
+        font-size: clamp(46px, 6vw, 86px);
+        line-height: 0.92;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 620px;
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: 19px;
+      }
+
+      .verdict {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .metric {
+        padding: 18px;
+        background: var(--soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .survey {
+        min-height: 520px;
+        overflow: hidden;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .survey img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      .section {
+        margin-top: 28px;
+        padding: 30px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 22px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 26px;
+        letter-spacing: 0;
+      }
+
+      .section-note {
+        max-width: 580px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .component {
+        min-height: 520px;
+        display: flex;
+        flex-direction: column;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .component:nth-child(1) {
+        border-top: 5px solid var(--accent);
+      }
+
+      .component:nth-child(2) {
+        border-top: 5px solid var(--accent-2);
+      }
+
+      .component:nth-child(3) {
+        border-top: 5px solid var(--accent-3);
+      }
+
+      .component h3 {
+        margin: 0 0 8px;
+        font-size: 25px;
+      }
+
+      .tagline {
+        min-height: 48px;
+        margin: 0 0 20px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .component ul,
+      .component ol,
+      .rules ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .component li,
+      .rules li {
+        margin: 8px 0;
+      }
+
+      .label {
+        margin: 22px 0 8px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      code {
+        padding: 2px 5px;
+        border-radius: 5px;
+        background: #f3f0ea;
+        color: #231f1a;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.92em;
+      }
+
+      .matrix {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      .matrix th,
+      .matrix td {
+        padding: 13px 12px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .matrix th {
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .matrix tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        margin: 2px 4px 2px 0;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: var(--soft);
+        border: 1px solid var(--line);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .rules {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .rules h3 {
+        margin: 0 0 12px;
+        font-size: 20px;
+      }
+
+      .callout {
+        margin-top: 28px;
+        padding: 22px 26px;
+        border-left: 5px solid var(--accent);
+        background: #fff6ef;
+        border-radius: 8px;
+        color: #3a2a1d;
+      }
+
+      .callout p {
+        margin: 0;
+      }
+
+      .footnote {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 980px) {
+        .page {
+          width: min(100vw - 28px, 760px);
+          padding-top: 18px;
+        }
+
+        .hero,
+        .cards-grid,
+        .split {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy,
+        .section {
+          padding: 22px;
+        }
+
+        .survey {
+          min-height: 340px;
+        }
+
+        .verdict {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          display: block;
+        }
+
+        .section-note {
+          margin-top: 12px;
+        }
+
+        .component {
+          min-height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="hero-copy">
+          <div>
+            <p class="eyebrow">Card taxonomy proposal</p>
+            <h1>3 reusable cards, not 10 bespoke cards.</h1>
+            <p class="lede">
+              The survey looks noisy because media, badges, CTAs, and density
+              keep changing. The underlying behaviors are stable: commercial
+              offer display, commercial offer action, and editorial/native
+              content.
+            </p>
+          </div>
+          <div class="verdict" aria-label="proposal verdict">
+            <div class="metric">
+              <strong>3</strong>
+              <span>public card components</span>
+            </div>
+            <div class="metric">
+              <strong>5</strong>
+              <span>shared composables</span>
+            </div>
+            <div class="metric">
+              <strong>0</strong>
+              <span>use-case variants</span>
+            </div>
+          </div>
+        </div>
+        <figure class="survey" aria-label="source card survey board">
+          <img src="./cards-survey.jpg" alt="Survey board of cashback, code, merchant, and media cards" />
+        </figure>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Recommended Public API</h2>
+          <p class="section-note">
+            Split by behavior and information hierarchy. Do not split by image
+            versus logo, badge count, sponsorship text, or card size.
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="component">
+            <h3>OfferCard</h3>
+            <p class="tagline">
+              Merchant reward display card. It sells the offer but does not own
+              reveal-code or activation state.
+            </p>
+            <p class="label">Covers</p>
+            <ul>
+              <li>Regular cashback merchant tiles</li>
+              <li>Top-up bonus cards</li>
+              <li>Logo-only stacked merchant cards</li>
+              <li>Image-plus-logo sponsored cards</li>
+              <li>Favorite + activate merchant card, via action slot</li>
+            </ul>
+            <p class="label">Core props</p>
+            <ul>
+              <li><code>density</code>: hero, default, compact, rail</li>
+              <li><code>mediaKind</code>: logo, image, imageWithLogo, none</li>
+              <li><code>merchant</code>, <code>title</code>, <code>subtitle</code></li>
+              <li><code>badges</code>, <code>meta</code>, <code>sponsored</code></li>
+            </ul>
+            <p class="label">Slots</p>
+            <ul>
+              <li><code>leading</code>: merchant logo or badge stack</li>
+              <li><code>action</code>: Button, favorite CTA, or none</li>
+              <li><code>footer</code>: expiry, sponsorship, conditions</li>
+            </ul>
+          </article>
+
+          <article class="component">
+            <h3>ActionOfferCard</h3>
+            <p class="tagline">
+              Offer card with a conversion state machine: activate cashback,
+              reveal code, placeholder, expiry, and conditions.
+            </p>
+            <p class="label">Covers</p>
+            <ul>
+              <li>Amazon + iGraal activation card</li>
+              <li>Verified discount code card</li>
+              <li>Acer cashback + code/deal card</li>
+              <li>Any card where action state changes the body</li>
+            </ul>
+            <p class="label">Core props</p>
+            <ul>
+              <li><code>offerType</code>: cashback, code, cashbackCode, bonus</li>
+              <li><code>actionState</code>: locked, activated, revealed, expired</li>
+              <li><code>partnerLogo</code>, <code>merchantLogo</code>, <code>title</code></li>
+              <li><code>legalLink</code>, <code>validity</code>, <code>verification</code></li>
+            </ul>
+            <p class="label">Slots</p>
+            <ul>
+              <li><code>rewardSummary</code>: rate/badge cluster</li>
+              <li><code>actionArea</code>: CTA, CodeReveal, placeholder</li>
+              <li><code>footer</code>: conditions and expiry</li>
+            </ul>
+          </article>
+
+          <article class="component">
+            <h3>MediaCard</h3>
+            <p class="tagline">
+              Image-dominant editorial or native ad card. The image is the
+              subject, not decoration around a merchant offer.
+            </p>
+            <p class="label">Covers</p>
+            <ul>
+              <li>Summer editorial card</li>
+              <li>MSI / Nike / MediaMarkt content cards</li>
+              <li>Sponsored native content rows</li>
+              <li>Campaign article cards with arrow affordance</li>
+            </ul>
+            <p class="label">Core props</p>
+            <ul>
+              <li><code>orientation</code>: vertical, horizontal</li>
+              <li><code>aspectRatio</code>: 16:9, 4:3, 1:1</li>
+              <li><code>source</code>, <code>headline</code>, <code>body</code></li>
+              <li><code>logo</code>, <code>badge</code>, <code>sponsored</code></li>
+            </ul>
+            <p class="label">Slots</p>
+            <ul>
+              <li><code>mediaOverlay</code>: badge or label</li>
+              <li><code>trailing</code>: arrow, none, or small CTA</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Mapping</h2>
+          <p class="section-note">
+            Every card in the survey maps into one of the three components.
+            Differences become density, media treatment, or composed slots.
+          </p>
+        </div>
+
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Survey example</th>
+              <th>Component</th>
+              <th>Configuration</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Amazon + iGraal cashback activation</td>
+              <td><strong>ActionOfferCard</strong></td>
+              <td><span class="pill">density: hero</span><span class="pill">actionState: locked</span><span class="pill">actionArea: placeholder</span></td>
+              <td>Business action changes the card body, so it should not be just a visual OfferCard variant.</td>
+            </tr>
+            <tr>
+              <td>Alexa discount code / verified card</td>
+              <td><strong>ActionOfferCard</strong></td>
+              <td><span class="pill">offerType: code</span><span class="pill">actionArea: CodeReveal</span></td>
+              <td>Reveal-code behavior is a stateful conversion pattern.</td>
+            </tr>
+            <tr>
+              <td>Acer cashback + code/deal large card</td>
+              <td><strong>ActionOfferCard</strong></td>
+              <td><span class="pill">offerType: cashbackCode</span><span class="pill">footer: conditions</span></td>
+              <td>It combines reward display and gated action.</td>
+            </tr>
+            <tr>
+              <td>Foodspring top-up, regular, cashback + code tiles</td>
+              <td><strong>OfferCard</strong></td>
+              <td><span class="pill">density: compact</span><span class="pill">mediaKind: logo</span></td>
+              <td>Same hierarchy; only badge stack and title copy change.</td>
+            </tr>
+            <tr>
+              <td>ASOS / IKEA / Nike / stacked logo merchant cards</td>
+              <td><strong>OfferCard</strong></td>
+              <td><span class="pill">density: rail</span><span class="pill">mediaKind: logo or image</span></td>
+              <td>Logo versus image is media configuration, not a new card.</td>
+            </tr>
+            <tr>
+              <td>Summer story and sponsored content rows</td>
+              <td><strong>MediaCard</strong></td>
+              <td><span class="pill">orientation: vertical or horizontal</span><span class="pill">trailing: arrow</span></td>
+              <td>Editorial hierarchy starts with image/headline, not merchant/rate/action.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Shared Composables</h2>
+          <p class="section-note">
+            These keep the three-card model from turning into prop soup. They
+            should be documented as the expected slot contents.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="rules">
+            <h3>Build these once</h3>
+            <ul>
+              <li><code>CardShell</code>: surface, radius, border, padding, elevation, overflow.</li>
+              <li><code>MerchantIdentity</code>: logo, merchant name, co-brand pairing.</li>
+              <li><code>BadgeStack</code>: cashback, code, verified, expiry, top-up bonus.</li>
+              <li><code>CodeReveal</code>: placeholder, reveal state, copied state, expired state.</li>
+              <li><code>OfferFooter</code>: sponsored, expiry, conditions link, legal copy.</li>
+            </ul>
+          </div>
+          <div class="rules">
+            <h3>Variable modes</h3>
+            <ul>
+              <li><code>Density</code>: hero, default, compact, rail.</li>
+              <li><code>Appearance</code>: neutral, primary, secondary, sparkle.</li>
+              <li><code>Emphasis</code>: default, subtle, ghost.</li>
+              <li><code>Platform</code>: screen-level only; never scoped to the card.</li>
+              <li><code>Color Mode</code>: screen-level only; the card consumes output tokens.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p>
+            The key rule: when a new card asks for another boolean prop, first
+            try a slot composable. New props should describe stable structure,
+            not one campaign's temporary badge arrangement.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>What Not To Combine</h2>
+          <p class="section-note">
+            These boundaries are what keep the system reusable instead of
+            becoming one god-card with thirty props.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="rules">
+            <h3>Do not merge MediaCard into OfferCard</h3>
+            <p>
+              Editorial cards are image-first. Offer cards are merchant/rate/action-first.
+              Forcing both into one API creates ambiguous slots and inconsistent list behavior.
+            </p>
+          </div>
+          <div class="rules">
+            <h3>Do not make density separate components</h3>
+            <p>
+              <code>OfferCardCompact</code> and <code>OfferCardHero</code> would
+              duplicate the same contract. Density should be token-driven.
+            </p>
+          </div>
+          <div class="rules">
+            <h3>Do not encode every badge as a boolean</h3>
+            <p>
+              Use a composed <code>BadgeStack</code>. Props like
+              <code>isTopUpBonus</code>, <code>isVerified</code>, and
+              <code>hasExpiryChip</code> will rot fast.
+            </p>
+          </div>
+          <div class="rules">
+            <h3>Do not bury business logic in OfferCard</h3>
+            <p>
+              Reveal code, activate cashback, favorite, and copy states belong
+              to action composables or containers, not the presentational card shell.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Implementation Notes</h2>
+          <p class="section-note">
+            Workshop was not reachable in the current runtime, so this section
+            reflects the implementation review pass I would hand to Workshop.
+          </p>
+        </div>
+
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Risk</th>
+              <th>Decision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>OfferCard becoming a god component</td>
+              <td>Keep action behavior in slot composables. New campaign behavior should not add another OfferCard prop by default.</td>
+            </tr>
+            <tr>
+              <td>Unstable heights in rails and grids</td>
+              <td>Lock image ratios and line clamps per density. Rail cards should not accept arbitrary body copy.</td>
+            </tr>
+            <tr>
+              <td>RN flex differences</td>
+              <td>Avoid layout variants that depend on CSS grid. Build with predictable vertical/horizontal stacks and fixed media aspect ratios.</td>
+            </tr>
+            <tr>
+              <td>Token drift</td>
+              <td>Create <code>Card / Output</code>, <code>OfferCard / Output</code>, <code>ActionOfferCard / Output</code>, and <code>MediaCard / Output</code> tokens before final Figma build.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="footnote">
+          Challenger review aligned with the 3-card recommendation and pushed
+          hardest on keeping badges/actions composable instead of enumerated.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
